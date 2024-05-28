@@ -6,28 +6,20 @@ const searchBtn = document.querySelector(".search button");
 
 const weatherIcon = document.querySelector(".weather-icon");
 
-function UrlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
-}
-
 async function checkWeather(city){
     const response = await fetch(apiUrl + city +`&appid=${apiKey}`);
     var data = await response.json();
 
-    console.log(data);
+    // console.log(data);
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp)+"°c";
     document.querySelector(".humidity").innerHTML = data.main.humidity+"%";
     document.querySelector(".wind").innerHTML = data.wind.speed+" km/hr";
 
-    // if(isfileexist("images/"+data.weather[0].main.toLowerCase()+".png"))
-    //     weatherIcon.src = "images/"+data.weather[0].main.toLowerCase()+".png";
-    // else
-    //     console.log('No such file');
+    temperature = data.main.temp;
+    (temperature <= 0) ? weatherIcon.src = "images/snow.png" : (temperature>40 ? weatherIcon.src = "images/clear.png" : "images/"+data.weather[0].main.toLowerCase()+".png");
+
+    // console.log(weatherIcon.src);
 }
 
 searchBtn.addEventListener("click", ()=>{
