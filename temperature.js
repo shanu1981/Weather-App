@@ -22,6 +22,13 @@ async function checkWeather(city){
     // console.log(weatherIcon.src);
 }
 
+searchBox.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault(); 
+        checkWeather(searchBox.value);
+    }
+});
+
 searchBtn.addEventListener("click", ()=>{
     checkWeather(searchBox.value);
 });
